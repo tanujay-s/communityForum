@@ -1,0 +1,41 @@
+h1 {
+    text-align: center;
+    margin: 20px 0;
+}
+
+#announcementList {
+    max-width: 800px;
+    margin: 0 auto;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 20px;
+    font-family: Arial, sans-serif;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-shadow: 0 2px 4px rgba(70, 68, 68, 0.1);
+    max-height: 300px; /* Set a fixed maximum height for the container */
+    overflow-y: auto;
+    gap: 10px; /* Add gap between announcements */
+    margin-bottom: 30px;
+}
+
+.announcement {
+    background-color: #fff;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    width: 100%;
+    box-sizing: border-box; /* Ensure padding and border are included in the width */
+}
+
+.announcement h3 {
+    margin-top: 0;
+    margin-bottom: 10px;
+}
+
+.announcement p {
+    margin: 0;
+}
+
+

@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Community Forum</title>
+    <link rel="stylesheet" href="./style.css"> 
+</head>
+
+<body>
+    <header class="site-header">
+        <div class="container">
+            <div class="site-logo">
+                <a href="#"><img src="./assets/logo-removebg-preview.png" alt="UIM Forum"></a>
+            </div>
+            <nav class="site-nav">
+                <ul>
+                    <li><a href="./index.html">Home</a></li>
+                    <li id="announcement-section"><a href="announcements.html">Announcements</a></li>
+                    <!-- Links to other sections are hidden by default -->
+                    <li id="discussion-section" class="login-required"><a href="./discussion.html">Discussions</a></li>
+
+                    <li id="polls-section" class="login-required"><a href="poll.html">Polls</a></li>
+                    <!-- Add more links for other sections -->
+                    <li id="profile-section" style="display: none;">
+                        <a href="#" class="dropbtn">Profile</a>
+                        <div class="dropdown-content">
+                            <a href="#" id="logout-link">Logout</a>
+                        </div>
+                    </li>
+                    <li id="login-section"><a href="./login.html">Login/Register</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <section class="hero">
+        <div class="hero-content">
+            <h1>Welcome to Our Community Forum</h1>
+            <p>Join our vibrant community of MBA and MCA students.</p>
+        </div>
+    </section>
+
+    <section class="rules-regulations">
+        <div class="container">
+            <h2>Rules and Regulations</h2>
+            <ul>
+                <li>Be respectful to all members.</li>
+                <li>No spamming or advertising.</li>
+                <li>Use appropriate language.</li>
+                <li>Stay on topic.</li>
+                <li>Report any inappropriate content to admins.</li>
+            </ul>
+        </div>
+    </section>
+
+
+    <section id="cta-display" class="cta">
+        <div class="container">
+            <h2>Ready to Join the Community?</h2>
+            <p>Sign up now to start participating in discussions and connecting with fellow students!</p>
+            <a href="./login.html" class="btn btn-primary">Sign Up</a>
+        </div>
+    </section>
+
+
+    <footer class="site-footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-column">
+                    <h3>About Us</h3>
+                    <p>Learn more about our community forum and how you can get involved.</p>
+                </div>
+                <div class="footer-column">
+                    <h3>Contact Us</h3>
+                    <p>If you have any questions or inquiries, feel free to reach out to us.</p>
+                </div>
+                <div class="footer-column">
+                    <h3>Quick Links</h3>
+                    <ul>
+                        <li><a href="./index.html">Home</a></li>
+                        <li><a href="./announcements.html">Announcements</a></li>
+                        <li><a href="#">Resources</a></li>
+                        <li><a href="#">Events</a></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        function checkScreenWidth() {
+            const warningMessage = document.getElementById('screenWidthWarning');
+
+            if (window.innerWidth < 768) { // Threshold for mobile devices
+                if (!warningMessage) {
+                    const warning = document.createElement('div');
+                    warning.id = 'screenWidthWarning';
+                    warning.style.position = 'fixed';
+                    warning.style.top = '0';
+                    warning.style.left = '0';
+                    warning.style.width = '100%';
+                    warning.style.backgroundColor = 'rgba(0, 0, 0, 0.8)';
+                    warning.style.color = 'white';
+                    warning.style.textAlign = 'center';
+                    warning.style.padding = '20px';
+                    warning.style.zIndex = '1000';
+                    warning.innerText = 'For a better experience, please open this site on a PC.';
+
+                    document.body.appendChild(warning);
+                }
+            } else {
+                if (warningMessage) {
+                    warningMessage.remove();
+                }
+            }
+        }
+
+        window.addEventListener('load', checkScreenWidth);
+        window.addEventListener('resize', checkScreenWidth);
+    </script>
+    <script src="./index.js"></script> <!-- Link to external JavaScript file -->
+</body>
+
+</html>

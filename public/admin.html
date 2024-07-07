@@ -1,0 +1,294 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Panel</title>
+    <link rel="stylesheet" href="./admin.css">
+</head>
+
+<body>
+
+    <div class="container">
+        <h1 class="heading">Admin Panel</h1>
+
+        <form id="adminLoginForm" class="center-form">
+            <input type="email" name="email" placeholder="Email" required>
+            <input type="password" name="password" placeholder="Password" required>
+            <button type="submit">Login</button>
+
+        </form>
+        <button class="homePage"><a href="./index.html">Home Page</a></button>
+
+        <div id="adminActions" class="actions" style="display: none;">
+            <div class="row">
+                <div class="fetchDiscussion">
+                    <button id="fetchDiscussions">Fetch Discussions</button>
+                    <div id="discussionList"></div>
+                </div>
+                <div class="createAnnouncement">
+                    <h2>Create Announcement</h2>
+                    <form id="announcementForm">
+                        <input type="text" name="title" placeholder="Title" required>
+                        <textarea name="content" placeholder="Content" required></textarea>
+                        <button type="submit">Create Announcement</button>
+                    </form>
+                    <div id="announcementList"></div>
+                </div>
+            </div>
+
+            <div id="createPollSection">
+                <h2>Create Poll</h2>
+                <form id="createPollForm">
+                    <input type="text" name="question" placeholder="Poll Question" required>
+                    <input type="text" name="option1" placeholder="Option 1" required>
+                    <input type="text" name="option2" placeholder="Option 2" required>
+                    <input type="text" name="option3" placeholder="Option 3">
+                    <input type="text" name="option4" placeholder="Option 4">
+                    <input type="datetime-local" name="expiresAt" placeholder="Expires At">
+                    <button type="submit">Create Poll</button>
+                </form>
+            </div>
+            <div class="loadPolls">
+                <h2>All Polls</h2>
+                <div id="pollsContainer"></div>
+            </div>
+
+            <div class="center-logout">
+                <button id="logout">Logout</button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+
+        document.getElementById('adminLoginForm').addEventListener('submit', async (event) => {
+            event.preventDefault();
+            const formData = new FormData(event.target);
+            const plainFormData = Object.fromEntries(formData.entries());
+
+            try {
+                const response = await fetch('/api/admin/login', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify(plainFormData)
+                });
+
+                const data = await response.json();
+                if (data.message === 'Login successful') {
+                    document.getElementById('adminLoginForm').style.display = 'none';
+                    document.getElementById('adminActions').style.display = 'block';
+                    fetchAnnouncements();
+                }
+            } catch (error) {
+                console.error('Login failed:', error);
+            }
+        });
+
+        document.getElementById('fetchDiscussions').addEventListener('click', async () => {
+            try {
+                const response = await fetch('/api/discussions');
+                const data = await response.json();
+                const discussionList = document.getElementById('discussionList');
+                discussionList.innerHTML = '';
+
+                data.discussions.forEach(discussion => {
+                    const discussionElement = document.createElement('div');
+                    discussionElement.innerHTML = `
+                        <h2>${discussion.title}</h2>
+                        <p>${discussion.content}</p>
+                        <button data-id="${discussion._id}">Delete</button>
+                    `;
+                    discussionElement.querySelector('button').addEventListener('click', async (event) => {
+                        const discussionId = event.target.getAttribute('data-id');
+                        console.log('Deleting discussion with ID:', discussionId);
+
+                        try {
+                            const deleteResponse = await fetch(`/api/discussions/${discussionId}`, {
+                                method: 'DELETE'
+                            });
+
+                            if (deleteResponse.ok) {
+                                discussionElement.remove();
+                            } else {
+                                console.error('Error deleting discussion:', await deleteResponse.text());
+                            }
+                        } catch (error) {
+                            console.error('Error deleting discussion:', error);
+                        }
+                    });
+                    discussionList.appendChild(discussionElement);
+                });
+            } catch (error) {
+                console.error('Error fetching discussions:', error);
+            }
+        });
+
+
+
+        document.getElementById('announcementForm').addEventListener('submit', async (event) => {
+            event.preventDefault();
+            const formData = new FormData(event.target);
+            const plainFormData = Object.fromEntries(formData.entries());
+
+            try {
+                const response = await fetch('/api/announcements', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify(plainFormData)
+                });
+
+                const data = await response.json();
+                if (data.message === 'Announcement created successfully') {
+                    fetchAnnouncements();
+                }
+            } catch (error) {
+                console.error('Error creating announcement:', error);
+            }
+        });
+
+        async function fetchAnnouncements() {
+            try {
+                const response = await fetch('/api/announcements');
+                const data = await response.json();
+                const announcementList = document.getElementById('announcementList');
+                announcementList.innerHTML = '';
+
+                data.announcements.forEach(announcement => {
+                    const announcementElement = document.createElement('div');
+                    announcementElement.innerHTML = `
+                        <h3>${announcement.title}</h3>
+                        <p>${announcement.content}</p>
+                        <p>By: ${announcement.createdBy.email}</p>
+                        <button data-id="${announcement._id}">Delete</button>
+                    `;
+                    announcementElement.querySelector('button').addEventListener('click', async (event) => {
+                        const announcementId = event.target.getAttribute('data-id');
+                        console.log('Deleting announcement with ID:', announcementId);
+
+                        try {
+                            const deleteResponse = await fetch(`/api/announcements/${announcementId}`, {
+                                method: 'DELETE'
+                            });
+
+                            if (deleteResponse.ok) {
+                                announcementElement.remove();
+                            } else {
+                                console.error('Error deleting announcement:', await deleteResponse.text());
+                            }
+                        } catch (error) {
+                            console.error('Error deleting announcement:', error);
+                        }
+                    });
+                    announcementList.appendChild(announcementElement);
+                });
+            } catch (error) {
+                console.error('Error fetching announcements:', error);
+            }
+        }
+
+
+
+        document.getElementById('createPollForm').addEventListener('submit', async (event) => {
+            event.preventDefault();
+            const formData = new FormData(event.target);
+            const plainFormData = Object.fromEntries(formData.entries());
+
+            const options = [plainFormData.option1, plainFormData.option2, plainFormData.option3, plainFormData.option4].filter(option => option);
+
+            try {
+                const response = await fetch('/api/polls', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({
+                        question: plainFormData.question,
+                        options,
+                        expiresAt: plainFormData.expiresAt
+                    })
+                });
+
+                const data = await response.json();
+                if (data.message === 'Poll created successfully') {
+                    // Reload or update the polls list
+                }
+            } catch (error) {
+                console.error('Error creating poll:', error);
+            }
+        });
+
+
+
+        async function loadPolls() {
+            try {
+                const response = await fetch('/api/polls');
+                if (!response.ok) {
+                    throw new Error('Failed to fetch polls');
+                }
+                const data = await response.json();
+
+                const pollsContainer = document.getElementById('pollsContainer');
+                pollsContainer.innerHTML = '';
+                data.polls.forEach(poll => {
+                    const pollElement = document.createElement('div');
+                    pollElement.id = `poll-${poll._id}`;
+                    pollElement.innerHTML = `
+                <h3>${poll.question}</h3>
+                <button onclick="deletePoll('${poll._id}')">Delete Poll</button>
+            `;
+                    pollsContainer.appendChild(pollElement);
+                });
+            } catch (error) {
+                console.error('Error loading polls:', error);
+            }
+        }
+
+        async function deletePoll(pollId) {
+            if (!confirm('Are you sure you want to delete this poll?')) {
+                return;
+            }
+
+            try {
+                const response = await fetch(`/api/polls/${pollId}`, {
+                    method: 'DELETE',
+                    headers: { 'Content-Type': 'application/json' }
+                });
+
+                if (!response.ok) {
+                    const data = await response.json();
+                    throw new Error(data.message);
+                }
+
+                const data = await response.json();
+                console.log('Poll deleted successfully:', data);
+                // Remove the poll from the UI
+                document.getElementById(`poll-${pollId}`).remove();
+            } catch (error) {
+                console.error('Error deleting poll:', error);
+                alert(error.message); // Notify admin of the error
+            }
+        }
+
+        // Load polls when the page loads
+        loadPolls();
+
+
+        document.getElementById('logout').addEventListener('click', async () => {
+            try {
+                const response = await fetch('/api/admin/logout', {
+                    method: 'POST'
+                });
+
+                const data = await response.json();
+                if (data.message === 'Logout successful') {
+                    document.getElementById('adminLoginForm').style.display = 'block';
+                    document.getElementById('adminActions').style.display = 'none';
+                }
+            } catch (error) {
+                console.error('Logout failed:', error);
+            }
+        });
+    </script>
+</body>
+
+</html>
