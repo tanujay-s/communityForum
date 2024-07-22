@@ -17,12 +17,12 @@ const PORT = process.env.PORT || 3000;
 
 app.use(express.static(path.join(__dirname, 'public')));
 
-// Connect to MongoDB Atlas
+
 mongoose.connect('mongodb+srv://tanujaysingh063:G4I9uxZOL5RrpRQy@communitycluster0.lqcmkhs.mongodb.net/?retryWrites=true&w=majority&appName=communitycluster0', { useNewUrlParser: true, useUnifiedTopology: true })
   .then(() => console.log('Connected to MongoDB Atlas'))
   .catch(err => console.error('Error connecting to MongoDB Atlas:', err));
 
-// Define Mongoose Schema and Model
+
 const userSchema = new mongoose.Schema({
   email: { type: String, required: true },
   password: { type: String, required: true },
@@ -31,13 +31,13 @@ const userSchema = new mongoose.Schema({
 
 const User = mongoose.model('User', userSchema);
 
-// Express middleware to parse JSON bodies
+
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 
-// Session middleware
+
 app.use(session({
   secret: 'your-secret-key',
   resave: false,
@@ -46,7 +46,7 @@ app.use(session({
 
 
 
-// Admin login route
+
 app.post('/api/admin/login', async (req, res) => {
   const { email, password } = req.body;
 
@@ -62,7 +62,7 @@ app.post('/api/admin/login', async (req, res) => {
   res.json({ message: 'Login successful' });
 });
 
-//admin logout
+
 app.post('/api/admin/logout', (req, res) => {
   req.session.destroy((err) => {
     if (err) {
@@ -75,7 +75,7 @@ app.post('/api/admin/logout', (req, res) => {
 
 
 
-// Delete discussion route
+
 
 app.delete('/api/discussions/:id', adminMiddleware, async (req, res) => {
   try {
@@ -100,7 +100,7 @@ app.delete('/api/discussions/:id', adminMiddleware, async (req, res) => {
 
 
 
-// Routes
+
 app.post('/register', async (req, res) => {
   try {
     const hashedPassword = await bcrypt.hash(req.body.password, 10);
@@ -116,7 +116,7 @@ app.post('/register', async (req, res) => {
   }
 });
 
-// Route for user login
+
 app.post('/login', async (req, res) => {
   try {
     // Find the user by email
@@ -143,7 +143,7 @@ app.post('/login', async (req, res) => {
 });
 
 
-// Route to check if the user is logged in
+
 app.get('/isLoggedIn', (req, res) => {
   // Check if the user is logged in
   const isLoggedIn = req.session && req.session.user;
@@ -153,7 +153,7 @@ app.get('/isLoggedIn', (req, res) => {
 });
 
 
-// Route for logout
+
 app.post('/logout', (req, res) => {
   // Check if the user is logged in
   if (req.session && req.session.user) {
@@ -180,7 +180,7 @@ app.get('/login', (req, res) => {
 });
 
 
-// Route for rendering the index.html file
+
 app.get('/dashboard', (req, res) => {
   // Check if the user is logged in
   const isLoggedIn = req.session && req.session.user;
@@ -195,10 +195,10 @@ app.get('/dashboard', (req, res) => {
   }
 });
 
-// Routes
+
 app.use('/api/discussions', discussionRoutes);
 
-// Announcement Routes
+
 app.use('/api/announcements', announcementRoutes);
 
 app.get('/admin', (req, res) => {
@@ -209,10 +209,10 @@ app.get('/announcements', (req, res) => {
   res.sendFile(path.join(__dirname, 'public', 'announcements.html'));
 });
 
-//Polls routes
+
 // app.use('/api/polls',pollRoutes);
 
-// Create Poll (Admin Only)
+
 app.post('/api/polls', adminMiddleware, async (req, res) => {
   try {
     const { question, options, expiresAt } = req.body;
@@ -230,7 +230,7 @@ app.post('/api/polls', adminMiddleware, async (req, res) => {
   }
 });
 
-//Get All Polls
+
 app.get('/api/polls', async (req, res) => {
   try {
 
@@ -242,7 +242,7 @@ app.get('/api/polls', async (req, res) => {
   }
 });
 
-// Get Poll by ID
+
 app.get('/api/polls/:id', async (req, res) => {
   try {
     const pollId = req.params.id;
@@ -258,7 +258,7 @@ app.get('/api/polls/:id', async (req, res) => {
   }
 });
 
-// Vote in Poll
+
 app.post('/api/polls/:id/vote', async (req, res) => {
   try {
     const { id } = req.params;
@@ -285,7 +285,7 @@ app.post('/api/polls/:id/vote', async (req, res) => {
   }
 });
 
-// Get Poll Results
+
 app.get('/api/polls/:id/results', async (req, res) => {
   try {
     const { id } = req.params;
@@ -301,7 +301,7 @@ app.get('/api/polls/:id/results', async (req, res) => {
   }
 });
 
-// Delete Poll (Admin Only)
+
 app.delete('/api/polls/:id', adminMiddleware, async (req, res) => {
   try {
     const { id } = req.params;
@@ -318,7 +318,7 @@ app.delete('/api/polls/:id', adminMiddleware, async (req, res) => {
 });
 
 
-// Start the server
+
 app.listen(PORT, () => {
   console.log(`Server is running on http://localhost:${PORT}`);
 });
