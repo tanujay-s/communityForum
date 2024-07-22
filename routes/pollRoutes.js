@@ -4,7 +4,6 @@ const router = express.Router();
 const Poll = require('../models/poll');
 const adminMiddleware = require('../middleware/admin');
 
-// Create Poll (Admin Only)
 // router.post('/', adminMiddleware, async (req, res) => {
 //     try {
 //         const { question, options, expiresAt } = req.body;
@@ -22,7 +21,7 @@ const adminMiddleware = require('../middleware/admin');
 //     }
 // });
 
-//Get All Polls
+
 // router.get('/', async (req, res) => {
 //     try {
         
@@ -36,7 +35,6 @@ const adminMiddleware = require('../middleware/admin');
 
 
 
-// Get Poll by ID
 // router.get('/api/polls/:id', async (req, res) => {
 //     console.log('Fetching poll with ID in routes:', req.params.id);
 //     try {
@@ -57,7 +55,6 @@ const adminMiddleware = require('../middleware/admin');
 
 
 
-// // Vote in Poll
 // router.post('/:id/vote', async (req, res) => {
 //     try {
 //         const { id } = req.params;
@@ -77,7 +74,7 @@ const adminMiddleware = require('../middleware/admin');
 //     }
 // });
 
-// // Get Poll Results
+
 // router.get('/:id/results', async (req, res) => {
 //     try {
 //         const { id } = req.params;
