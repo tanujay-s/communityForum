@@ -1,5 +1,5 @@
 document.addEventListener("DOMContentLoaded", function() {
-     // Select elements for login/register and dashboard sections
+   
      const loginSection = document.getElementById('login-section');
      const dashboardSection = document.getElementById('profile-section');
      const discussionSection = document.getElementById('discussion-section');
@@ -7,14 +7,14 @@ document.addEventListener("DOMContentLoaded", function() {
      const ctaDisplay = document.getElementById('cta-display');
      const announcementSection = document.getElementById('announcement-section');
 
-    // Function to check if the user is logged in
+
     const isLoggedIn = () => {
-        // Send a request to the server to check if the user is authenticated
+        
         fetch('/isLoggedIn')
             .then(response => response.json())
             .then(data => {
                 if (data.isLoggedIn) {
-                    // User is logged in, display the dashboard section and hide the login section
+                    
                     loginSection.style.display = 'none';
                     dashboardSection.style.display = 'block';
                     discussionSection.style.display = 'block';
@@ -22,7 +22,7 @@ document.addEventListener("DOMContentLoaded", function() {
                     ctaDisplay.style.display = 'none';
                     announcementSection.style.display = 'block';
                 } else {
-                    // User is not logged in, display the login section and hide the dashboard section
+                    
                     loginSection.style.display = 'block';
                     dashboardSection.style.display = 'none';
                     discussionSection.style.display = 'none';
@@ -37,7 +37,7 @@ document.addEventListener("DOMContentLoaded", function() {
             });
     };
 
-    // Call the isLoggedIn function to check authentication status when the page loads
+   
     isLoggedIn();
 
     // Select the logout link
