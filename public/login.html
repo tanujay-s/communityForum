@@ -92,30 +92,30 @@
             var emailInput = document.querySelector('#email'); // Select the email input
             var passwordInput = document.querySelector('#password'); // Select the password input
 
-            // Event listener for "Register" link click
+            
             registerLink.addEventListener('click', function (event) {
                 event.preventDefault(); // Prevent default anchor behavior
                 loginForm.style.display = 'none'; // Hide the login form
                 registerForm.style.display = 'block'; // Show the registration form
             });
 
-            // Event listener for "Login" link click
+           
             loginLink.addEventListener('click', function (event) {
                 event.preventDefault(); // Prevent default anchor behavior
                 registerForm.style.display = 'none'; // Hide the registration form
                 loginForm.style.display = 'block'; // Show the login form
             });
 
-            // Event listener for registration form submission
+          
             registerForm.addEventListener('submit', async function (event) {
                 event.preventDefault(); // Prevent the default form submission
 
-                // Retrieve user input from the registration form fields
+               
                 var email = document.querySelector('#register-email').value;
                 var password = document.querySelector('#register-password').value;
 
                 try {
-                    // Send a POST request to the server's registration endpoint
+             
                     var response = await fetch('/register', {
                         method: 'POST',
                         headers: {
@@ -124,24 +124,22 @@
                         body: JSON.stringify({ email: email, password: password })
                     });
 
-                    // Handle the response from the server
+              
                     if (response.ok) {
-                        // Registration successful, redirect the user or perform other actions
+                      
                         window.location.href = '/login'; // Redirect to the login page
                     } else {
-                        // Registration failed, display error message to the user
+                      
                         var errorMessage = await response.text();
                         console.error('Registration failed:', errorMessage);
                         alert('Registration unsuccessfull.');
-                        // Display error message on the registration form, for example
-                        // document.querySelector('#register-error').textContent = errorMessage;
+             
                     }
                 } catch (error) {
-                    // An error occurred during the request
+                   
                     console.error('Error:', error);
                     alert('An error occurred while registration. Please try again later.');
-                    // Display a generic error message to the user
-                    // Example: document.querySelector('#register-error').textContent = 'An error occurred. Please try again.';
+                  
                 }
             });
 
