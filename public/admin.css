@@ -223,16 +223,16 @@ body {
 
 .loadPolls {
   max-width: 600px;
-  /* adjust the width to your liking */
+ 
   margin: 40px auto;
-  /* add auto to margin-left and margin-right */
+
   padding: 20px;
   background-color: #f7f7f7;
   border: 1px solid #ddd;
   border-radius: 10px;
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
   text-align: center;
-  /* add this to center the content */
+ 
 }
 
 .loadPolls h2 {
@@ -265,18 +265,18 @@ button :hover {
   font-size: 16px;
   cursor: pointer;
   color: #ffffff;
-  /* white text color */
+
 }
 
 .homePage a {
   text-decoration: none;
   color: inherit;
-  /* inherit the parent's text color */
+
 }
 
 .homePage:hover {
   background-color: #2E865F;
-  /* darker green color on hover, adjust to your liking */
+
 }
 
 /* center the button */
