@@ -1,4 +1,4 @@
-/* Container for discussions */
+
 .discussion_container {
   max-width: 800px;
   margin: 0 auto;
@@ -6,13 +6,13 @@
   font-family: Arial, sans-serif;
 }
 
-/* Title */
+
 .discussion_container h1 {
   text-align: center;
   margin-bottom: 20px;
 }
 
-/* Form styling */
+
 .discussion_container form {
   margin-bottom: 20px;
   background-color: #f9f9f9;
@@ -21,14 +21,14 @@
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
 
-/* Label styling */
+
 .discussion_container form label {
   display: block;
   margin-bottom: 5px;
   font-weight: bold;
 }
 
-/* Input and textarea styling */
+
 .discussion_container form input[type="text"],
 .discussion_container form textarea {
   width: 100%;
@@ -39,7 +39,7 @@
   font-size: 16px;
 }
 
-/* Button styling */
+
 .discussion_container form button {
   padding: 10px 20px;
   background-color: #007bff;
@@ -50,12 +50,12 @@
   font-size: 16px;
 }
 
-/* Button hover effect */
+
 .discussion_container form button:hover {
   background-color: #0056b3;
 }
 
-/* Discussion styling */
+
 .discussion {
   min-width: 500px;
   max-width: 760px;
@@ -68,11 +68,11 @@
   border: 1px solid #ccc;
   border-radius: 4px;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-  max-height: 300px; /* Set a fixed maximum height for each discussion */
+  max-height: 300px;
   overflow-y: auto;
 }
 
-/* Comment form styling */
+
 .commentForm {
   margin-top: 10px;
   padding: 10px;
@@ -80,7 +80,7 @@
   border-radius: 4px;
 }
 
-/* Comment list styling */
+
 .commentList {
   margin-top: 10px;
   padding: 10px;
@@ -88,76 +88,20 @@
   border-radius: 4px;
 }
 
-/* Individual comment styling */
+
 .comment {
   padding: 8px;
   margin-bottom: 10px;
   border-bottom: 1px solid #eee;
 }
 
-/* Strong text for comment author */
+
 .comment p strong {
   display: block;
   margin-bottom: 5px;
 }
 
-/* Margin for individual comment text */
+
 .comment p {
   margin: 0;
 }
-
-
-
-
-
-/*   
-  .discussion_container {
-    max-width: 800px;
-    margin: 0 auto;
-    padding: 20px;
-  }
-  
-  .discussion_container h1 {
-    text-align: center;
-  }
-  
-  .discussion_container form {
-    margin-bottom: 20px;
-  }
-  
-  .discussion_container form label {
-    display: block;
-    margin-bottom: 5px;
-  }
-  
-  .discussion_container form input[type="text"],
-  textarea {
-    width: 100%;
-    padding: 8px;
-    margin-bottom: 10px;
-  }
-  
-  .discussion_container form button {
-    padding: 10px 20px;
-    background-color: #007bff;
-    color: #fff;
-    border: none;
-    cursor: pointer;
-  }
-  
-  .discussion_container form  button:hover {
-    background-color: #0056b3;
-  }
-  
-  .discussion {
-    border-bottom: 1px solid #ddd;
-    margin-bottom: 10px;
-    padding-bottom: 10px;
-  }
-  
-  .discussion img {
-    max-width: 100%;
-    height: auto;
-    margin-bottom: 10px;
-  }
-   */
