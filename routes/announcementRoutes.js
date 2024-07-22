@@ -5,7 +5,7 @@ const adminMiddleware = require('../middleware/admin');
 const Announcement = require('../models/announcements');
 
 
-//Create an announcement (admin only)
+
 router.post('/', adminMiddleware, async (req, res) => {
     try {
         const { title, content } = req.body;
@@ -22,7 +22,7 @@ router.post('/', adminMiddleware, async (req, res) => {
     }
 });
 
-// Fetch all announcements (public)
+
 router.get('/', async (req, res) => {
     try {
         const announcements = await Announcement.find().populate('createdBy', 'email');
@@ -32,7 +32,7 @@ router.get('/', async (req, res) => {
     }
 });
 
-// Delete an announcement (admin only)
+
 router.delete('/:id', adminMiddleware, async (req, res) => {
     try {
         const announcementId = req.params.id;
